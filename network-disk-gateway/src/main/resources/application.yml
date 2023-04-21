@@ -1,0 +1,63 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    nacos:
+      server-addr: 49.234.7.37:8848
+      discovery:
+        server-addr: ${spring.cloud.nacos.server-addr}
+        ip: 47.110.83.145
+    gateway:
+#      globalcors:
+#        cors-configurations:
+#          '[/**]':
+#            # 允许携带认证信息
+#            # 允许跨域的源(网站域名/ip)，设置*为全部
+#            # 允许跨域请求里的head字段，设置*为全部
+#            # 允许跨域的method， 默认为GET和OPTIONS，设置*为全部
+#            # 跨域允许的有效期
+#            allow-credentials: true
+#            allowed-origins: "http://localhost:8082"
+##              - "http://localhost:8080"
+##              -
+#            allowed-headers: "*"
+#            allowed-methods: "*"
+#            max-age: 3600
+      routes:
+        - id: file_route
+          uri: lb://file-service
+          predicates:
+            - Path=/file/**
+        - id: core_route
+          uri: lb://core-service
+          predicates:
+            - Path=/core/**
+        - id: share_route
+          uri: lb://share-service
+          predicates:
+            - Path=/share/**, /assets2/**
+        - id: user_route
+          uri: lb://user-service
+          predicates:
+            - Path=/user/**, /assets2/**
+      discovery:
+        locator:
+          enabled: true
+#      default-filters: smartContainer
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+#单点登录服务端地址
+sso:
+  server:
+    url: http://47.110.83.145:8080
+  #客户端应用密钥信息
+  app:
+    id: demo1
+    secret: 123456

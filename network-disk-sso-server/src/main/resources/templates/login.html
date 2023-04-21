@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>登录</title>
+<style type="text/css">
+</style>
+</head>
+<script type="text/javascript">
+	var url = window.location.href;
+	if(url.indexOf('/login') == -1){
+		window.location.href = 'http://47.110.83.145:8080/login';
+	}
+</script>
+<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jsencrypt.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/login.js}"></script>
+<link th:href="@{/assets/css/login-all-min.css}" rel="stylesheet"
+	type="text/css" />
+<link rel="stylesheet" th:href="@{/assets/css/amazeui.css}" />
+<script th:src="@{/assets/js/amazeui.min.js}"></script>
+<body>
+	<div id="login-container">
+	<textarea id="publicKey" hidden="true" rows="" cols=""></textarea>
+	<textarea id="message" hidden="true" rows="" cols="" th:text="${#request.getAttribute('errorMessage')}"></textarea>
+
+		<div data-am-widget="slider" class="ibg-bg am-slider am-slider-a1"
+			data-am-slider='{&quot;directionNav&quot;:false}'>
+			<ul class="am-slides">
+				<li><img src="https://pan.baidu.com/static/images/16new/bg1.jpg" />
+
+				</li>
+				<li><img src="https://pan.baidu.com/static/images/16new/bg2.jpg" />
+
+				</li>
+				<li><img src="https://pan.baidu.com/static/images/16new/bg3.jpg" />
+
+				</li>
+				<li><img src="https://pan.baidu.com/static/images/16new/bg4.jpg" />
+
+				</li>
+			</ul>
+		</div>
+		<div class="header-container">
+			<div id="login-header">
+				<div class="logo">
+					<a class="yun-logo" href="//727pan.cn/" target="_blank"
+						title="772网盘">727网盘</a> <a class="pan-logo" href="//727pan.cn/"
+						title="网盘">网盘</a>
+				</div>
+			</div>
+		</div>
+		<div class="login-main">
+			<div class="all-index-banner"></div>
+			<div class="login-sdk-v4">
+				<div class="header-login">
+					<div id="login-middle" class="tang-pass-login"
+						style="display: block; visibility: visible; opacity: 1;">
+						<form id="loginForm" class="pass-form pass-form-normal" action="http://47.110.83.145:8080/login"
+							method="post">
+							<input type="hidden" name="redirectUri" th:value="${param.redirectUri}"/>
+							<input type="hidden" name="appId" th:value="${param.appId}"/>
+							<input type="hidden" name="RSAKey" id="RSAKey"/>
+							<p class="pass-form-logo">帐号密码登录</p>
+							<p id="TANGRAM__PSP_4__errorWrapper"
+								class="pass-generalErrorWrapper">
+								<span id="TANGRAM__PSP_4__error"
+									class="pass-generalError pass-generalError-error" style="display: none">
+									用户名或密码错误，请重新输入或<a href="">找回密码</a>
+									</span>
+							</p>
+							<input id="TANGRAM__PSP_4__userName" type="text" name="username"
+								class="pass-text-input pass-text-input-userName open form-data"
+								autocomplete="new-password" value="" placeholder="用户名">
+
+							<input id="TANGRAM__PSP_4__password" type="password"
+								name="password" class="pass-text-input pass-text-input-password form-data"
+								autocomplete="new-password" value="" placeholder="密码">
+							<p id="TANGRAM__PSP_4__submitWrapper"
+								class="pass-form-item pass-form-item-submit">
+								<input id="TANGRAM__PSP_4__submit" type="button" value="登录"
+									class="pass-button pass-button-submit" /><a
+									class="pass-fgtpwd"
+									href="http://47.110.83.145:8080/getPass">忘记密码？</a>
+							</p>
+						</form>
+					</div>
+					<div class="tang-pass-footerBar">
+						<div class="tang-pass-footerBarPhoenix">
+							<span class="tang-pass-footerBarPhoenixSplit"></span>
+							<div class="tang-pass-footerBarPhoenixItem"
+								id="TANGRAM__PSP_4__PhoenixItem">
+								<div id="pass-phoenix-login" class="tang-pass-login-phoenix">
+									<div id="pass-phoenix-list-login"
+										class="pass-phoenix-list clearfix">
+										<div class="pass-phoenix-btn clearfix" id="pass_phoenix_btn">
+											<ul class="bd-acc-list">
+												<li class="bd-acc-tsina" data-dialog="1" data-acc="2"
+													data-height="669" data-width="800"><a
+													class="phoenix-btn-item" href="#" data-title="tsina"
+													title="新浪微博"></a></li>
+												<li class="bd-acc-qzone" data-dialog="1" data-acc="15"
+													data-height="450" data-width="750"><a
+													class="phoenix-btn-item" href="#" data-title="qzone"
+													title="QQ帐号"></a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<a class="pass-reglink"
+							href="http://47.110.83.145:8080/register"
+							target="_blank">立即注册</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="login-download">
+		<ul class="tab-download clearfix" id="tab-download">
+			<li><a class="windows download-target" hidefocus="true"
+				href="javascript:;" id="windows-download"
+				target-href="http://issuecdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk-5.7.3.exe">Windows</a></li>
+			<li><a class="android" hidefocus="true" href="javascript:;"
+				id="android-download"
+				target-href="http://issuecdn.baidupcs.com/issue/netdisk/apk/BaiduNetdisk_8.3.0.apk">Android</a></li>
+			<li><a class="iphone" hidefocus="true" href="javascript:;"
+				id="iphone-download"
+				target-href="http://itunes.apple.com/cn/app/bai-du-wang-pan/id547166701?mt=8">iPhone</a></li>
+			<li><a class="ipad download-open" hidefocus="true"
+				href="javascript:;" id="ipad-download"
+				target-href="http://itunes.apple.com/cn/app/bai-du-yun-hd/id554602005?mt=8">iPad</a></li>
+			<li><a class="wp wphone  download-open" hidefocus="true"
+				href="javascript:;" id="wphone-download"
+				target-href="http://www.windowsphone.com/zh-cn/store/app/%E7%99%BE%E5%BA%A6%E4%BA%91/59bf5640-85ae-4a6e-84f1-a61c074e667c">WP</a></li>
+		</ul>
+	</div>
+	<div class="footer">
+		<div xmlns="http://www.w3.org/1999/xhtml">
+			©2021 东软毕设 <a class="b-lnk-gy" href="//quhailong.top"
+				target="_blank">毕业设计</a>
+		</div>
+	</div>
+	<script type="text/javascript">
+		jQuery(function($) {
+			//验证是否存在错误消息
+			var fail = $("#message").val();
+			if(fail != null && fail != ''){
+				alert(fail);
+			}
+			$("#TANGRAM__PSP_4__submit").click(function () {
+				var encrypt = new JSEncrypt();
+				encrypt.setPublicKey($("#publicKey").val());
+				var password = $("#TANGRAM__PSP_4__password").val();
+				var passwordEnc = encrypt.encrypt(password);
+				$("#TANGRAM__PSP_4__password").val(passwordEnc);
+				$('#loginForm').submit();
+			});
+			// 回车绑定
+			$(".form-data").bind('keypress', function(event) {
+				if(event.keyCode == "13"){
+					event.preventDefault();
+					$("#TANGRAM__PSP_4__submit").click();
+				}
+			});
+		});
+	</script>
+</body>
+</html>

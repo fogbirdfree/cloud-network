@@ -1,0 +1,46 @@
+package com.dongruan.graduation.networkdiskssoserver.session;
+
+import com.dongruan.graduation.networkdiskssoserver.common.AuthContent;
+import com.dongruan.graduation.networkdiskssoserver.common.Expiration;
+import com.dongruan.graduation.networkdiskssoserver.common.RefreshTokenContent;
+
+import java.util.UUID;
+
+/**
+ * 刷新凭证refreshToken管理抽象
+ * 
+ * @author Joe
+ */
+public interface RefreshTokenManager extends Expiration {
+
+	/**
+	 * 生成refreshToken
+	 * 
+	 * @param authContent
+	 * @param accessToken
+	 * @param appId
+	 * @return
+	 */
+	default String generate(AuthContent authContent, String accessToken, String appId) {
+		String refreshToken = "RT-" + UUID.randomUUID().toString().replaceAll("-", "");
+		create(refreshToken, new RefreshTokenContent(authContent.getTgt(), authContent.isSendLogoutRequest(),
+				authContent.getRedirectUri(), accessToken, appId));
+		return refreshToken;
+	}
+
+	/**
+	 * 生成refreshToken
+	 * 
+	 * @param refreshToken
+	 * @param refreshTokenContent
+	 */
+	void create(String refreshToken, RefreshTokenContent refreshTokenContent);
+
+	/**
+	 * 验证refreshToken有效性，无论有效性与否，都remove掉
+	 * 
+	 * @param refreshToken
+	 * @return
+	 */
+	RefreshTokenContent validate(String refreshToken);
+}
